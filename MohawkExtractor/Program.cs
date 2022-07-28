@@ -23,8 +23,13 @@ public class MohawkExtractor
             Console.WriteLine("Usage: MohawkExtractor <inputPath> <outputPath>");
             return;
         }
-        var rootPath = Path.GetFullPath(args[0]);
-        var outputPath = Path.GetFullPath(args[1]);
+        var rootPath = args[0];
+        if (!Directory.Exists(args[0]))
+        {
+            Console.WriteLine($"Can't find root path: {rootPath}");
+            return;
+        }
+        var outputPath = args[1];
         foreach (var file in Directory.EnumerateFiles(rootPath, "*.mhk", SearchOption.AllDirectories))
         {
             Extract(file, outputPath);
